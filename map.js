@@ -1,60 +1,3 @@
-let ocean_basemap = new ol.layer.Tile({
-    source: new ol.source.XYZ({
-        attributions: 'Esri, Garmin, GEBCO, NOAA NGDC, and other contributors',
-        url: 'https://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}',
-        // maxZoom: 19,
-    })
-});
-
-let old_ocean_basemap = new ol.layer.Tile({
-    source: new ol.source.XYZ({
-        attributions: 'Esri, Garmin, GEBCO, NOAA NGDC, and other contributors',
-        // url: 'https://services.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}',
-        url: 'https://services.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer/tile/{z}/{y}/{x}',
-        // maxZoom: 19,
-    })
-})
-
-let ignore_layers = [
-    'Admin0 forest or park',
-    'Admin0 forest or park/label',
-    'Admin0 ribbon L2 L3 inner',
-    'Admin0 ribbon L2 L3 outer',
-    'Admin0 ribbon L4 inner',
-    'Admin0 ribbon L4 outer',
-    'Admin0 ribbon L5 inner',
-    'Admin0 ribbon L5 outer',
-    'Admin0 ribbon L6 inner',
-    'Admin0 ribbon L6 outer',
-    'Admin0 ribbon L7 inner',
-    'Admin0 ribbon L7 outer',
-    'Admin1 forest or park',
-    'Bathymetry',
-    'Biome',
-    'Boundary line',
-    'Coastline',
-    'Colormap',
-    'Graticule',
-    'Graticule/label',
-    'Indigenous',
-    'Land',
-    'Marine area',
-    'Military',
-    'Military/label',
-    // 'Ocean point',
-    'Road',
-    'Road tunnel',
-    'Road/label',
-    'Spot elevation',
-    'Vegetation small scale',
-    'Water area large scale',
-    'Water area medium scale',
-    'Water area small scale',
-    'Water line large scale',
-    'Water line medium scale',
-    'Water line small scale',
-    'Urban area',
-]
 let default_land_style = {
     color: 'black',
     outline_width: 2,
@@ -63,7 +6,6 @@ let default_land_style = {
     font: '"Verdana"',
     weight: 'normal',
     wrap: false,
-    resolution: null,
 };
 let default_water_style = {
     color: 'blue',
@@ -73,7 +15,6 @@ let default_water_style = {
     font: '"Open Sans"',
     weight: 'normal',
     wrap: false,
-    resolution: null
 };
 let label_layers = {
     'Admin0 point': {                   // Country
@@ -84,7 +25,6 @@ let label_layers = {
         font: '"Open Sans"',
         weight: 'bold',
         wrap: false,
-        resolution: null,
     },
     'Admin1 area/label': {                   //State
         color: 'rgba(150,150,150,0.5)',
@@ -94,7 +34,6 @@ let label_layers = {
         font: '"Open Sans"',
         weight: 'bold',
         wrap: false,
-        resolution: null,
     },
     'Admin1 forest or park/label': default_land_style,
     'Admin2 area/label': {                   // district/region
@@ -114,7 +53,6 @@ let label_layers = {
                 ]
             },
         ],
-        resolution: null,
     },
     'Beach/label':{                   // district/region
         color: 'rgba(100,100,100,0.5)',
@@ -124,7 +62,6 @@ let label_layers = {
         font: '"Open Sans"',
         weight: 'bold italic',
         wrap: true,
-        resolution: null,
     },
     'Continent': {                  //Continent
         color: 'rgba(150,150,150,0.7)',
@@ -134,7 +71,6 @@ let label_layers = {
         font: '"Open Sans"',
         weight: 'bold',
         wrap: true,
-        resolution: null,
     },
     'City large scale': {                   // Small City
         color: 'rgba(80,80,80,0.5)',
@@ -144,17 +80,15 @@ let label_layers = {
         font: '"Open Sans"',
         weight: 'normal',
         wrap: false,
-        resolution: null,
     },
     'City small scale': {                   // City
-        color: 'rgba(80,80,80,0.8)',
+        color: 'rgba(80,80,80,0.7)',
         outline_width: 0,
         outline_color: 'rgba(0,0,0,0)',
         size: '10px',
         font: '"Open Sans"',
         weight: 'normal',
         wrap: false,
-        resolution: null,
     },
     'Disputed label point': default_land_style,
     'Indigenous/label':default_land_style,
@@ -167,7 +101,6 @@ let label_layers = {
         font: '"Open Sans"',
         weight: 'bold italic',
         wrap: true,
-        resolution: null,
     },
     'Marine area/label': {         //Ocean or large sea
         color: 'rgba(00,90,200,0.7)',
@@ -189,7 +122,6 @@ let label_layers = {
                 ]
             }
         ],
-        resolution: null
     },
     'Marine waterbody/label': {         //Ocean or large sea
         color: 'rgba(00,90,200,0.7)',
@@ -205,7 +137,6 @@ let label_layers = {
                 'change': [['size', '17px'],]
             },
         ],
-        resolution: null
     },
     'Ocean area/label': {              //Sea, basin, strait, or ridge
         color: 'rgba(40,100,200,0.7)',
@@ -226,7 +157,7 @@ let label_layers = {
                     'ledge']
                 ],
                 'change': [
-                    ['color', 'rgba(100,100,100,0.7)'],
+                    ['color', 'rgba(80,80,80,0.7)'],
                     ['weight', 'italic'],
                     ['font', '"Open Sans"']
                 ]
@@ -238,7 +169,6 @@ let label_layers = {
                 ]
             }
         ],
-        resolution: null
     },
     'Ocean point': {                //Bathy feature/depth
         color: 'rgba(0,0,0,0.5)',
@@ -248,16 +178,6 @@ let label_layers = {
         font: 'Verdana',
         weight: 'normal',
         wrap: false,
-        show_depths: false,
-        special: [
-            {
-                'condition':['resolution_below', 188.3],
-                'change':[
-                    ['show_depths', true]
-                ]
-            },
-        ],
-        resolution: null
     },
     'Outdoors place': default_land_style,
     'Water area/label': {              //water body
@@ -285,7 +205,6 @@ let label_layers = {
                 ]
             },
         ],
-        resolution: null
     },
     'Water area large scale': {              //small lake
         color: 'rgba(40,150,200,0.7)',
@@ -295,8 +214,6 @@ let label_layers = {
         font: 'Verdana',
         weight: 'italic',
         wrap: false,
-        // special: [],
-        resolution: null
     },
     'Water area large scale/label': {              //small lake
         color: 'rgba(40,100,200,0.7)',
@@ -306,8 +223,6 @@ let label_layers = {
         font: 'Verdana',
         weight: 'italic',
         wrap: false,
-        // special: [],
-        resolution: null
     },
     'Water area small scale/label': {              //large lake
         color: 'rgba(40,150,200,0.7)',
@@ -317,8 +232,15 @@ let label_layers = {
         font: 'Verdana',
         weight: 'italic',
         wrap: false,
-        // special: [],
-        resolution: null
+    },
+    'Water line': {              //river
+        color: 'rgba(40,150,200,0.5)',
+        outline_width: 0,
+        outline_color: 'rgba(0,0,0,0)',
+        size: '10px',
+        font: 'Verdana',
+        weight: 'italic',
+        wrap: false,
     },
     'Water line/label': {              //river
         color: 'rgba(40,150,200,0.5)',
@@ -328,8 +250,6 @@ let label_layers = {
         font: 'Verdana',
         weight: 'italic',
         wrap: false,
-        // special: [],
-        resolution: null
     },
     'Water line large scale/label': {              //small river
         color: 'rgba(40,150,200,0.7)',
@@ -339,8 +259,6 @@ let label_layers = {
         font: 'Verdana',
         weight: 'italic',
         wrap: false,
-        // special: [],
-        resolution: null
     },
     'Water line medium scale/label': {              //large river
         color: 'rgba(40,150,200,0.7)',
@@ -350,8 +268,6 @@ let label_layers = {
         font: 'Verdana',
         weight: 'italic',
         wrap: false,
-        // special: [],
-        resolution: null
     },
     'Water line small scale/label': default_water_style,
     'Water point/Sea or ocean': default_water_style,
@@ -433,7 +349,6 @@ let resolutions = [
             'Ocean area/label', //Sea
             'City small scale', //City
             'Water area small scale/label', //large lakes
-            'Water line medium scale/label', //large rivers
         ]
     },
     {
@@ -447,7 +362,6 @@ let resolutions = [
             'Ocean area/label', //Sea
             'City small scale', //City
             'Water area small scale/label', //large lakes
-            'Water line medium scale/label', //large rivers
         ]
     },
     {
@@ -461,7 +375,6 @@ let resolutions = [
             'Ocean area/label', //Sea
             'City small scale', //City
             'Water area small scale/label', //large lakes
-            'Water line medium scale/label', //large rivers
             'Admin1 area/label',        //State
         ]
     },
@@ -494,12 +407,8 @@ let resolutions = [
             'Water area small scale/label', //large lakes
             'Water line medium scale/label', //large rivers
             'Admin1 area/label',        //State
-            // 'Admin2 area/label',         //land forms
             'Marine area/label',        //Sounds
             'Water area large scale/label', //Small Lakes
-            // 'Water area large scale', //Small Lakes
-            // 'Water line large scale', //Small Rivers
-            // 'Water line large scale/label', //Small Rivers
         ]
     },
     {
@@ -512,6 +421,7 @@ let resolutions = [
             'Ocean point',      //bathy feature/depth
             'Ocean area/label', //Sea
             'City small scale', //City
+            'City large scale',         //small city
             'Water area small scale/label', //large lakes
             'Water line medium scale/label', //large rivers
             'Admin1 area/label',        //State
@@ -519,23 +429,18 @@ let resolutions = [
             'Landform/label',           //landforms
             'Marine area/label',        //Sounds
             'Water area large scale/label', //Small Lakes
-            // 'Water line large scale', //Small Rivers
-            // 'Water line large scale/label', //Small Rivers
         ]
     },
     {
         zoom: 12,
         min_resolution: 38.21,
         max_resolution: 76.43,
-        // layers: Object.keys(label_layers)
         layers: [
             'Marine waterbody/label',   //Ocean
             'Admin0 point',     //Country
             'Ocean point',      //bathy feature/depth
             'Ocean area/label', //Sea
-            'City small scale', //City
-            'Water area small scale/label', //large lakes
-            'Water line medium scale/label', //large rivers
+            'City large scale',         //small city
             'Admin1 area/label',        //State
             'Admin2 area/label',         //districts/regions
             'Landform/label',           //landforms
@@ -543,8 +448,6 @@ let resolutions = [
             'Water area/label',         // Water body
             'Water line/label',         // River
             'Water area large scale/label', //Small Lakes
-            // 'Water line large scale', //Small Rivers
-            // 'Water line large scale/label', //Small Rivers
         ]
     },
     {
@@ -556,9 +459,6 @@ let resolutions = [
             'Admin0 point',     //Country
             'Ocean point',      //bathy feature/depth
             'Ocean area/label', //Sea
-            'City small scale', //City
-            'Water area small scale/label', //large lakes
-            'Water line medium scale/label', //large rivers
             'Admin1 area/label',        //State
             'Admin2 area/label',         //districts/regions
             'Landform/label',           //landforms
@@ -567,8 +467,6 @@ let resolutions = [
             'Water line/label',         // River
             'City large scale',         //small city
             'Water area large scale/label', //Small Lakes
-            // 'Water line large scale', //Small Rivers
-            // 'Water line large scale/label', //Small Rivers
         ]
     },
     {
@@ -580,9 +478,6 @@ let resolutions = [
             'Admin0 point',     //Country
             'Ocean point',      //bathy feature/depth
             'Ocean area/label', //Sea
-            'City small scale', //City
-            'Water area small scale/label', //large lakes
-            'Water line medium scale/label', //large rivers
             'Admin1 area/label',        //State
             'Admin2 area/label',         //districts/regions
             'Landform/label',           //landforms
@@ -591,8 +486,6 @@ let resolutions = [
             'Water line/label',         // River
             'City large scale',         //small city
             'Water area large scale/label', //Small Lakes
-            // 'Water line large scale', //Small Rivers
-            // 'Water line large scale/label', //Small Rivers
         ]
     },
     {
@@ -604,9 +497,6 @@ let resolutions = [
             'Admin0 point',     //Country
             'Ocean point',      //bathy feature/depth
             'Ocean area/label', //Sea
-            'City small scale', //City
-            'Water area small scale/label', //large lakes
-            'Water line medium scale/label', //large rivers
             'Admin1 area/label',        //State
             'Admin2 area/label',         //districts/regions
             'Landform/label',           //landforms
@@ -616,8 +506,6 @@ let resolutions = [
             'City large scale',         //small city
             'Beach/label',              //Beach
             'Water area large scale/label', //Small Lakes
-            // 'Water line large scale', //Small Rivers
-            // 'Water line large scale/label', //Small Rivers
         ]
     },
     {
@@ -629,9 +517,6 @@ let resolutions = [
             'Admin0 point',     //Country
             'Ocean point',      //bathy feature/depth
             'Ocean area/label', //Sea
-            'City small scale', //City
-            'Water area small scale/label', //large lakes
-            'Water line medium scale/label', //large rivers
             'Admin1 area/label',        //State
             'Admin2 area/label',         //districts/regions
             'Landform/label',           //landforms
@@ -641,8 +526,6 @@ let resolutions = [
             'City large scale',         //small city
             'Beach/label',              //Beach
             'Water area large scale/label', //Small Lakes
-            // 'Water line large scale', //Small Rivers
-            // 'Water line large scale/label', //Small Rivers
         ]
     },
     {
@@ -665,6 +548,40 @@ let resolutions = [
     },
 ]
 
+/* 
+    showDepth: Determine if a feature's "minzoom" is allowed to be displayed
+        at the curent resolution
+*/
+let showDepth = function(resolution, minzoom) {
+    if (resolution < 15) {
+        return true;
+    } else if (resolution <= 20) {
+        return (minzoom <= 140 ? true : false); 
+    } else if (resolution <= 25) {
+        return (minzoom <= 130 ? true : false); 
+    } else if (resolution <= 50) {
+        return (minzoom <= 120 ? true : false); 
+    } else if (resolution <= 150) {
+        return (minzoom <= 110 ? true : false); 
+    } else if (resolution <= 350) {
+        return (minzoom <= 100 ? true : false); 
+    } else if (resolution <= 750) {
+        return (minzoom <= 90 ? true : false); 
+    } else if (resolution <= 1400) {
+        return (minzoom <= 80 ? true : false); 
+    } else if (resolution <= 1500) {
+        return (minzoom <= 70 ? true : false); 
+    } else if (resolution <= 3000) {
+        return (minzoom <= 60 ? true : false); 
+    } else if (resolution <= 5000) {
+        return (minzoom <= 50 ? true : false); 
+    }
+    return true;
+}
+
+/* 
+    getFeatureName: Attempt to get an appropriate label from a feature
+*/
 let getFeatureName = function(feature) {
     let name = feature.get('_name');
     if (!name || name === undefined) {
@@ -673,10 +590,14 @@ let getFeatureName = function(feature) {
     if (!name || name === undefined) {
         name = feature.get('_name_global');
     }
-
     return name;
 }
 
+/*
+    getResolutionLayers: Loop through the resolutions list to find which
+        layers should be associated with the current resolution and
+        return them.
+*/
 let getResolutionLayers = function(resolution) {
     for (let x of resolutions) {
         if (resolution < x.max_resolution && resolution >= x.min_resolution) {
@@ -686,6 +607,10 @@ let getResolutionLayers = function(resolution) {
     return [];
 }
 
+/*
+    applySpecialStyle: If a style has some dependencies, read the
+        definitions and apply as needed.
+*/
 let applySpecialStyle = function(label, resolution, style, rule) {
     let active = false;
     switch(rule.condition[0]) {
@@ -712,13 +637,18 @@ let applySpecialStyle = function(label, resolution, style, rule) {
     return style;
 };
 
-let buildLabelStyle = function(feature, resolution) {
+/*
+    buildOceanLabelStyle: Given a feature and the current map resolution,
+        determine whether it should be displayed, apply a style
+        and add it to the map.
+*/
+let buildOceanLabelStyle = function(feature, resolution) {
     let layer = feature.get('layer');
-    // let label = feature.get('_name');
     let label = getFeatureName(feature);
+    let minzoom = feature.get('_minzoom');
+    let label_class = feature.get('_label_class');
     let visible_layers = getResolutionLayers(resolution);
     if (visible_layers.indexOf(layer) >= 0) {
-        console.log('[VISIBLE] ' + layer + ' - ' + label + ' - ' + resolution);
         let style = structuredClone(label_layers[layer]);
         if (style.special) {
             for (rule of style.special) {
@@ -728,9 +658,11 @@ let buildLabelStyle = function(feature, resolution) {
         if (style.wrap) {
             label = stringDivider(label, 12, '\n');
         }
-        if (layer == 'Ocean point' && !style.show_depths && !isNaN(label)){
+        if(!showDepth(resolution, minzoom)) {
+            // console.log('[BLOCKED] ' + layer + ' - ' + label + ' - ' + resolution + ' - mz: ' + minzoom);
             return null;
         }
+        // console.log('[VISIBLE] ' + layer + ' - ' + label + ' - ' + resolution + ' - mz: ' + minzoom + '; cls: ' + label_class);
         return new ol.style.Text({
             text: label,
             font: style.weight + ' ' + style.size + ' ' + style.font,
@@ -742,29 +674,16 @@ let buildLabelStyle = function(feature, resolution) {
                 width: style.outline_width,
             }),
         });
-    } else {
-        // if (ignore_layers.indexOf(feature.get('layer')) < 0) {
-            console.log('[NOT VISIBLE] ' + layer + ' - ' + label);
-        // }
-    }
+    } 
     return null;
-    // return new ol.style.Text({
-    //     // textAlign: 'center',
-    //     // textBaseline: 'middle',
-    //     // placement: 'point',
-    //     // overflow: true,
-    //     // font: 'normal 12px "Open Sans"',
-    //     // getText(feature, resolution, {}),
-    //     text: feature.get('_name'),
-    //     // text: 'foo',
-    //     // fill: new ol.style.Fill({color: 'black'}),
-    //     // stroke: new ol.style.Stroke({color: 'white', width: 2}),
-
-    // })
-
 }
 
-let labelStyleFunction = function(feature, resolution) {
+/*
+    oceanLabelStyleFunction: Given a feature and a resolution,
+        make all features invisible, then pass details on to build
+        styles for the text labels
+*/
+let oceanLabelStyleFunction = function(feature, resolution) {
     let label_style = new ol.style.Style({
         stroke: new ol.style.Stroke({
             width: 1,
@@ -773,42 +692,10 @@ let labelStyleFunction = function(feature, resolution) {
         fill: new ol.style.Fill({
             color: 'rgba(0,255,0,0)'
         }),
-        text: buildLabelStyle(feature, resolution)
-        
+        text: buildOceanLabelStyle(feature, resolution)
     });
-    // console.log(feature.get('layer') + ' - ' + feature.get('_name'));
     return label_style;
-
 }
-
-
-let labels = new ol.layer.VectorTile({
-    source: new ol.source.VectorTile({
-        attributions: "Sources: Esri, HERE, Garmin, FAO, NOAA, USGS, © OpenStreetMap contributors, and the GIS User Community",
-        format: new ol.format.MVT(),
-        url: 'https://basemaps.arcgis.com/arcgis/rest/services/World_Basemap_v2/VectorTileServer/tile/{z}/{y}/{x}.pbf',
-        zDirection: 0,
-    }),
-    style: labelStyleFunction,
-    declutter: true,
-    useInterimTilesOnError: false,
-});
-
-const map = new ol.Map({
-    target: 'map',
-    layers: [
-        // old_ocean_basemap,
-        ocean_basemap,
-        labels,
-    ],
-    view: new ol.View({
-        // center:[-53800000,5800000],
-        center:[-13800000, 6000000],
-        // center:[-8357000, 4555000],
-        // center:[0, 0],
-        zoom:8
-    })
-});
 
 // https://stackoverflow.com/questions/14484787/wrap-text-in-javascript
 function stringDivider(str, width, spaceReplacer) {
