@@ -77,7 +77,7 @@ let default_water_style = {
 };
 let label_layers = {
     'Admin0 point': {                   // Country
-        color: 'rgba(150,150,150,1)',
+        color: 'rgba(150,150,150,0.7)',
         outline_width: 0,
         outline_color: 'rgba(0,0,0,0)',
         size: '14px',
@@ -87,7 +87,7 @@ let label_layers = {
         resolution: null,
     },
     'Admin1 area/label': {                   //State
-        color: 'rgba(150,150,150,1)',
+        color: 'rgba(150,150,150,0.5)',
         outline_width: 0,
         outline_color: 'rgba(0,0,0,0)',
         size: '14px',
@@ -127,7 +127,7 @@ let label_layers = {
         resolution: null,
     },
     'Continent': {                  //Continent
-        color: 'rgba(150,150,150,1)',
+        color: 'rgba(150,150,150,0.7)',
         outline_width: 0,
         outline_color: 'rgba(0,0,0,0)',
         size: '16px',
@@ -147,7 +147,7 @@ let label_layers = {
         resolution: null,
     },
     'City small scale': {                   // City
-        color: 'rgba(80,80,80,1)',
+        color: 'rgba(80,80,80,0.8)',
         outline_width: 0,
         outline_color: 'rgba(0,0,0,0)',
         size: '10px',
@@ -177,6 +177,18 @@ let label_layers = {
         font: 'Verdana',
         weight: 'italic',
         wrap: true,
+        special: [
+            {
+                'condition':['label', [
+                    'basin', ]
+                ],
+                'change': [
+                    ['color', 'rgba(100,100,100,0.7)'],
+                    ['weight', 'italic'],
+                    ['font', '"Open Sans"']
+                ]
+            }
+        ],
         resolution: null
     },
     'Marine waterbody/label': {         //Ocean or large sea
@@ -196,7 +208,7 @@ let label_layers = {
         resolution: null
     },
     'Ocean area/label': {              //Sea, basin, strait, or ridge
-        color: 'rgba(40,100,200,1)',
+        color: 'rgba(40,100,200,0.7)',
         outline_width: 0,
         outline_color: 'rgba(0,0,0,0)',
         size: '11px',
@@ -209,10 +221,12 @@ let label_layers = {
                     'basin', 'ridge', 'plain', 
                     'rise', 'trench', 'escarpment',
                     'plateau', 'seamount', 'bank', 
-                    'banque', 'canyon', 'shoal']
+                    'banque', 'canyon', 'shoal',
+                    'fracture zone', 'island', 'reef',
+                    'ledge']
                 ],
                 'change': [
-                    ['color', 'rgba(80,80,80,1)'],
+                    ['color', 'rgba(100,100,100,0.7)'],
                     ['weight', 'italic'],
                     ['font', '"Open Sans"']
                 ]
@@ -247,7 +261,45 @@ let label_layers = {
     },
     'Outdoors place': default_land_style,
     'Water area/label': {              //water body
-        color: 'rgba(40,150,200,1)',
+        color: 'rgba(40,150,200,0.7)',
+        outline_width: 0,
+        outline_color: 'rgba(0,0,0,0)',
+        size: '12px',
+        font: 'Verdana',
+        weight: 'italic',
+        wrap: false,
+        special: [
+            {
+                'condition':['label', [
+                    'basin', 'ridge', 'plain', 
+                    'rise', 'trench', 'escarpment',
+                    'plateau', 'seamount', 'bank', 
+                    'banque', 'canyon', 'shoal',
+                    'fracture zone', 'island', 'wetland', 
+                    ' rock', ' marsh']
+                ],
+                'change': [
+                    ['color', 'rgba(100,100,100,0.6)'],
+                    ['weight', 'italic'],
+                    ['font', '"Open Sans"']
+                ]
+            },
+        ],
+        resolution: null
+    },
+    'Water area large scale': {              //small lake
+        color: 'rgba(40,150,200,0.7)',
+        outline_width: 0,
+        outline_color: 'rgba(0,0,0,0)',
+        size: '11px',
+        font: 'Verdana',
+        weight: 'italic',
+        wrap: false,
+        // special: [],
+        resolution: null
+    },
+    'Water area large scale/label': {              //small lake
+        color: 'rgba(40,100,200,0.7)',
         outline_width: 0,
         outline_color: 'rgba(0,0,0,0)',
         size: '12px',
@@ -257,9 +309,8 @@ let label_layers = {
         // special: [],
         resolution: null
     },
-    'Water area large scale/label': default_water_style,
     'Water area small scale/label': {              //large lake
-        color: 'rgba(40,150,200,1)',
+        color: 'rgba(40,150,200,0.7)',
         outline_width: 0,
         outline_color: 'rgba(0,0,0,0)',
         size: '11px',
@@ -280,9 +331,19 @@ let label_layers = {
         // special: [],
         resolution: null
     },
-    'Water line large scale/label': default_water_style,
+    'Water line large scale/label': {              //small river
+        color: 'rgba(40,150,200,0.7)',
+        outline_width: 0,
+        outline_color: 'rgba(0,0,0,0)',
+        size: '11px',
+        font: 'Verdana',
+        weight: 'italic',
+        wrap: false,
+        // special: [],
+        resolution: null
+    },
     'Water line medium scale/label': {              //large river
-        color: 'rgba(40,150,200,1)',
+        color: 'rgba(40,150,200,0.7)',
         outline_width: 0,
         outline_color: 'rgba(0,0,0,0)',
         size: '11px',
@@ -435,6 +496,10 @@ let resolutions = [
             'Admin1 area/label',        //State
             // 'Admin2 area/label',         //land forms
             'Marine area/label',        //Sounds
+            'Water area large scale/label', //Small Lakes
+            // 'Water area large scale', //Small Lakes
+            // 'Water line large scale', //Small Rivers
+            // 'Water line large scale/label', //Small Rivers
         ]
     },
     {
@@ -453,6 +518,9 @@ let resolutions = [
             'Admin2 area/label',         //districts/regions
             'Landform/label',           //landforms
             'Marine area/label',        //Sounds
+            'Water area large scale/label', //Small Lakes
+            // 'Water line large scale', //Small Rivers
+            // 'Water line large scale/label', //Small Rivers
         ]
     },
     {
@@ -474,6 +542,9 @@ let resolutions = [
             'Marine area/label',        //Sounds
             'Water area/label',         // Water body
             'Water line/label',         // River
+            'Water area large scale/label', //Small Lakes
+            // 'Water line large scale', //Small Rivers
+            // 'Water line large scale/label', //Small Rivers
         ]
     },
     {
@@ -495,6 +566,9 @@ let resolutions = [
             'Water area/label',         // Water body
             'Water line/label',         // River
             'City large scale',         //small city
+            'Water area large scale/label', //Small Lakes
+            // 'Water line large scale', //Small Rivers
+            // 'Water line large scale/label', //Small Rivers
         ]
     },
     {
@@ -516,6 +590,9 @@ let resolutions = [
             'Water area/label',         // Water body
             'Water line/label',         // River
             'City large scale',         //small city
+            'Water area large scale/label', //Small Lakes
+            // 'Water line large scale', //Small Rivers
+            // 'Water line large scale/label', //Small Rivers
         ]
     },
     {
@@ -538,6 +615,9 @@ let resolutions = [
             'Water line/label',         // River
             'City large scale',         //small city
             'Beach/label',              //Beach
+            'Water area large scale/label', //Small Lakes
+            // 'Water line large scale', //Small Rivers
+            // 'Water line large scale/label', //Small Rivers
         ]
     },
     {
@@ -560,6 +640,9 @@ let resolutions = [
             'Water line/label',         // River
             'City large scale',         //small city
             'Beach/label',              //Beach
+            'Water area large scale/label', //Small Lakes
+            // 'Water line large scale', //Small Rivers
+            // 'Water line large scale/label', //Small Rivers
         ]
     },
     {
@@ -720,10 +803,10 @@ const map = new ol.Map({
     ],
     view: new ol.View({
         // center:[-53800000,5800000],
-        // center:[-13800000, 5800000],
-        center:[-8357000, 4555000],
+        center:[-13800000, 6000000],
+        // center:[-8357000, 4555000],
         // center:[0, 0],
-        zoom: 9
+        zoom:8
     })
 });
 
