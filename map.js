@@ -86,9 +86,47 @@ let label_layers = {
         wrap: false,
         resolution: null,
     },
-    'Admin1 area/label': default_land_style,
+    'Admin1 area/label': {                   //State
+        color: 'rgba(150,150,150,1)',
+        outline_width: 0,
+        outline_color: 'rgba(0,0,0,0)',
+        size: '14px',
+        font: '"Open Sans"',
+        weight: 'bold',
+        wrap: false,
+        resolution: null,
+    },
     'Admin1 forest or park/label': default_land_style,
-    'Continent': {
+    'Admin2 area/label': {                   // district/region
+        color: 'rgba(100,100,100,0.7)',
+        outline_width: 0,
+        outline_color: 'rgba(0,0,0,0)',
+        size: '14px',
+        font: '"Open Sans"',
+        weight: 'bold italic',
+        wrap: true,
+        special: [
+            {
+                'condition': ['resolution_below', 152.87],
+                'change': [
+                    ['size', '18px'],
+                    ['color', 'rgba(100,100,100,0.5)']
+                ]
+            },
+        ],
+        resolution: null,
+    },
+    'Beach/label':{                   // district/region
+        color: 'rgba(100,100,100,0.5)',
+        outline_width: 0,
+        outline_color: 'rgba(0,0,0,0)',
+        size: '14px',
+        font: '"Open Sans"',
+        weight: 'bold italic',
+        wrap: true,
+        resolution: null,
+    },
+    'Continent': {                  //Continent
         color: 'rgba(150,150,150,1)',
         outline_width: 0,
         outline_color: 'rgba(0,0,0,0)',
@@ -96,6 +134,16 @@ let label_layers = {
         font: '"Open Sans"',
         weight: 'bold',
         wrap: true,
+        resolution: null,
+    },
+    'City large scale': {                   // Small City
+        color: 'rgba(80,80,80,0.5)',
+        outline_width: 0,
+        outline_color: 'rgba(0,0,0,0)',
+        size: '10px',
+        font: '"Open Sans"',
+        weight: 'normal',
+        wrap: false,
         resolution: null,
     },
     'City small scale': {                   // City
@@ -111,9 +159,28 @@ let label_layers = {
     'Disputed label point': default_land_style,
     'Indigenous/label':default_land_style,
     'land': default_land_style,
-    'Landform/label': default_land_style,
+    'Landform/label': {                   //Landform
+        color: 'rgba(120,120,120,0.5)',
+        outline_width: 0,
+        outline_color: 'rgba(0,0,0,0)',
+        size: '16px',
+        font: '"Open Sans"',
+        weight: 'bold italic',
+        wrap: true,
+        resolution: null,
+    },
+    'Marine area/label': {         //Ocean or large sea
+        color: 'rgba(00,90,200,0.7)',
+        outline_width: 0,
+        outline_color: 'rgba(0,0,0,0)',
+        size: '12px',
+        font: 'Verdana',
+        weight: 'italic',
+        wrap: true,
+        resolution: null
+    },
     'Marine waterbody/label': {         //Ocean or large sea
-        color: '#0060c0',
+        color: 'rgba(00,90,200,0.7)',
         outline_width: 0,
         outline_color: 'rgba(0,0,0,0)',
         size: '12px',
@@ -142,7 +209,7 @@ let label_layers = {
                     'basin', 'ridge', 'plain', 
                     'rise', 'trench', 'escarpment',
                     'plateau', 'seamount', 'bank', 
-                    'banque', 'canyon']
+                    'banque', 'canyon', 'shoal']
                 ],
                 'change': [
                     ['color', 'rgba(80,80,80,1)'],
@@ -167,9 +234,29 @@ let label_layers = {
         font: 'Verdana',
         weight: 'normal',
         wrap: false,
+        show_depths: false,
+        special: [
+            {
+                'condition':['resolution_below', 188.3],
+                'change':[
+                    ['show_depths', true]
+                ]
+            },
+        ],
         resolution: null
     },
     'Outdoors place': default_land_style,
+    'Water area/label': {              //water body
+        color: 'rgba(40,150,200,1)',
+        outline_width: 0,
+        outline_color: 'rgba(0,0,0,0)',
+        size: '12px',
+        font: 'Verdana',
+        weight: 'italic',
+        wrap: false,
+        // special: [],
+        resolution: null
+    },
     'Water area large scale/label': default_water_style,
     'Water area small scale/label': {              //large lake
         color: 'rgba(40,150,200,1)',
@@ -182,8 +269,19 @@ let label_layers = {
         // special: [],
         resolution: null
     },
+    'Water line/label': {              //river
+        color: 'rgba(40,150,200,0.5)',
+        outline_width: 0,
+        outline_color: 'rgba(0,0,0,0)',
+        size: '10px',
+        font: 'Verdana',
+        weight: 'italic',
+        wrap: false,
+        // special: [],
+        resolution: null
+    },
     'Water line large scale/label': default_water_style,
-    'Water line medium scale/label': {              //large lake
+    'Water line medium scale/label': {              //large river
         color: 'rgba(40,150,200,1)',
         outline_width: 0,
         outline_color: 'rgba(0,0,0,0)',
@@ -267,7 +365,6 @@ let resolutions = [
         zoom: 6,
         min_resolution: 2445.98,
         max_resolution: 4891.96,
-        // layers: Object.keys(label_layers)
         layers: [
             'Marine waterbody/label',   //Ocean
             'Admin0 point',     //Country
@@ -282,7 +379,6 @@ let resolutions = [
         zoom: 7,
         min_resolution: 1222.99,
         max_resolution: 2445.98,
-        // layers: Object.keys(label_layers)
         layers: [
             'Marine waterbody/label',   //Ocean
             'Admin0 point',     //Country
@@ -297,7 +393,6 @@ let resolutions = [
         zoom: 8,
         min_resolution: 611.49,
         max_resolution: 1222.99,
-        // layers: Object.keys(label_layers)
         layers: [
             'Marine waterbody/label',   //Ocean
             'Admin0 point',     //Country
@@ -313,6 +408,57 @@ let resolutions = [
         zoom: 9,
         min_resolution: 305.74,
         max_resolution: 611.49,
+        layers: [
+            'Marine waterbody/label',   //Ocean
+            'Admin0 point',     //Country
+            'Ocean point',      //bathy feature/depth
+            'Ocean area/label', //Sea
+            'City small scale', //City
+            'Water area small scale/label', //large lakes
+            'Water line medium scale/label', //large rivers
+            'Admin1 area/label',        //State
+            'Marine area/label',        //Sounds
+        ]
+    },
+    {
+        zoom: 10,
+        min_resolution: 152.87,
+        max_resolution: 305.74,
+        layers: [
+            'Marine waterbody/label',   //Ocean
+            'Admin0 point',     //Country
+            'Ocean point',      //bathy feature/depth
+            'Ocean area/label', //Sea
+            'City small scale', //City
+            'Water area small scale/label', //large lakes
+            'Water line medium scale/label', //large rivers
+            'Admin1 area/label',        //State
+            // 'Admin2 area/label',         //land forms
+            'Marine area/label',        //Sounds
+        ]
+    },
+    {
+        zoom: 11,
+        min_resolution: 76.43,
+        max_resolution: 152.87,
+        layers: [
+            'Marine waterbody/label',   //Ocean
+            'Admin0 point',     //Country
+            'Ocean point',      //bathy feature/depth
+            'Ocean area/label', //Sea
+            'City small scale', //City
+            'Water area small scale/label', //large lakes
+            'Water line medium scale/label', //large rivers
+            'Admin1 area/label',        //State
+            'Admin2 area/label',         //districts/regions
+            'Landform/label',           //landforms
+            'Marine area/label',        //Sounds
+        ]
+    },
+    {
+        zoom: 12,
+        min_resolution: 38.21,
+        max_resolution: 76.43,
         // layers: Object.keys(label_layers)
         layers: [
             'Marine waterbody/label',   //Ocean
@@ -323,67 +469,116 @@ let resolutions = [
             'Water area small scale/label', //large lakes
             'Water line medium scale/label', //large rivers
             'Admin1 area/label',        //State
+            'Admin2 area/label',         //districts/regions
+            'Landform/label',           //landforms
+            'Marine area/label',        //Sounds
+            'Water area/label',         // Water body
+            'Water line/label',         // River
         ]
-    },
-    {
-        zoom: 10,
-        min_resolution: 152.87,
-        max_resolution: 305.74,
-        layers: Object.keys(label_layers)
-    },
-    {
-        zoom: 11,
-        min_resolution: 76.43,
-        max_resolution: 152.87,
-        layers: Object.keys(label_layers)
-    },
-    {
-        zoom: 12,
-        min_resolution: 38.21,
-        max_resolution: 76.43,
-        layers: Object.keys(label_layers)
     },
     {
         zoom: 13,
         min_resolution: 19.10,
         max_resolution: 38.21,
-        layers: Object.keys(label_layers)
+        layers: [
+            'Marine waterbody/label',   //Ocean
+            'Admin0 point',     //Country
+            'Ocean point',      //bathy feature/depth
+            'Ocean area/label', //Sea
+            'City small scale', //City
+            'Water area small scale/label', //large lakes
+            'Water line medium scale/label', //large rivers
+            'Admin1 area/label',        //State
+            'Admin2 area/label',         //districts/regions
+            'Landform/label',           //landforms
+            'Marine area/label',        //Sounds
+            'Water area/label',         // Water body
+            'Water line/label',         // River
+            'City large scale',         //small city
+        ]
     },
     {
         zoom: 14,
         min_resolution: 9.55,
         max_resolution: 19.10,
-        layers: Object.keys(label_layers)
+        layers: [
+            'Marine waterbody/label',   //Ocean
+            'Admin0 point',     //Country
+            'Ocean point',      //bathy feature/depth
+            'Ocean area/label', //Sea
+            'City small scale', //City
+            'Water area small scale/label', //large lakes
+            'Water line medium scale/label', //large rivers
+            'Admin1 area/label',        //State
+            'Admin2 area/label',         //districts/regions
+            'Landform/label',           //landforms
+            'Marine area/label',        //Sounds
+            'Water area/label',         // Water body
+            'Water line/label',         // River
+            'City large scale',         //small city
+        ]
     },
     {
         zoom: 15,
         min_resolution: 4.777,
         max_resolution: 9.55,
-        layers: Object.keys(label_layers)
+        layers: [
+            'Marine waterbody/label',   //Ocean
+            'Admin0 point',     //Country
+            'Ocean point',      //bathy feature/depth
+            'Ocean area/label', //Sea
+            'City small scale', //City
+            'Water area small scale/label', //large lakes
+            'Water line medium scale/label', //large rivers
+            'Admin1 area/label',        //State
+            'Admin2 area/label',         //districts/regions
+            'Landform/label',           //landforms
+            'Marine area/label',        //Sounds
+            'Water area/label',         // Water body
+            'Water line/label',         // River
+            'City large scale',         //small city
+            'Beach/label',              //Beach
+        ]
     },
     {
         zoom: 16,
-        min_resolution: 2.388,
+        min_resolution: 2.022,
         max_resolution: 4.777,
-        layers: Object.keys(label_layers)
+        layers: [
+            'Marine waterbody/label',   //Ocean
+            'Admin0 point',     //Country
+            'Ocean point',      //bathy feature/depth
+            'Ocean area/label', //Sea
+            'City small scale', //City
+            'Water area small scale/label', //large lakes
+            'Water line medium scale/label', //large rivers
+            'Admin1 area/label',        //State
+            'Admin2 area/label',         //districts/regions
+            'Landform/label',           //landforms
+            'Marine area/label',        //Sounds
+            'Water area/label',         // Water body
+            'Water line/label',         // River
+            'City large scale',         //small city
+            'Beach/label',              //Beach
+        ]
     },
     {
         zoom: 17,
         min_resolution: 1.194,
-        max_resolution: 2.388,
-        layers: Object.keys(label_layers)
+        max_resolution: 2.388,  // 1.55422975
+        layers: []
     },
     {
         zoom: 18,
         min_resolution: 0.597,
         max_resolution: 1.194,
-        layers: Object.keys(label_layers)
+        layers: []
     },
     {
         zoom: 19,
         min_resolution: 0,
         max_resolution: 0.597,
-        layers: Object.keys(label_layers)
+        layers: []
     },
 ]
 
@@ -441,17 +636,17 @@ let buildLabelStyle = function(feature, resolution) {
     let visible_layers = getResolutionLayers(resolution);
     if (visible_layers.indexOf(layer) >= 0) {
         console.log('[VISIBLE] ' + layer + ' - ' + label + ' - ' + resolution);
-        // if (layer == 'Ocean point' && !isNaN(label)){
-        //     return null;
-        // }
         let style = structuredClone(label_layers[layer]);
-        if (style.wrap) {
-            label = stringDivider(label, 12, '\n');
-        }
         if (style.special) {
             for (rule of style.special) {
                 style = applySpecialStyle(label, resolution, style, rule);
             }
+        }
+        if (style.wrap) {
+            label = stringDivider(label, 12, '\n');
+        }
+        if (layer == 'Ocean point' && !style.show_depths && !isNaN(label)){
+            return null;
         }
         return new ol.style.Text({
             text: label,
@@ -465,9 +660,9 @@ let buildLabelStyle = function(feature, resolution) {
             }),
         });
     } else {
-        if (ignore_layers.indexOf(feature.get('layer')) < 0) {
+        // if (ignore_layers.indexOf(feature.get('layer')) < 0) {
             console.log('[NOT VISIBLE] ' + layer + ' - ' + label);
-        }
+        // }
     }
     return null;
     // return new ol.style.Text({
@@ -519,16 +714,16 @@ let labels = new ol.layer.VectorTile({
 const map = new ol.Map({
     target: 'map',
     layers: [
-        old_ocean_basemap,
-        // ocean_basemap,
+        // old_ocean_basemap,
+        ocean_basemap,
         labels,
     ],
     view: new ol.View({
         // center:[-53800000,5800000],
         // center:[-13800000, 5800000],
-        center:[-8000000, 5000000],
+        center:[-8357000, 4555000],
         // center:[0, 0],
-        zoom: 8
+        zoom: 9
     })
 });
 
